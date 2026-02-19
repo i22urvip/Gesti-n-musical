@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><title>Añadir Nueva Obra</title></head>
+<body>
+    <h1>Añadir Nueva Obra Musical</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %} {{ form.as_p }}  <button type="submit">Guardar Obra</button>
+        <a href="{% url 'lista_obras' %}">Cancelar</a>
+    </form>
+</body>
+</html>

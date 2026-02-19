@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Archivo Musical de Orquesta</title>
+</head>
+<body>
+    <div style="background-color: #f8f9fa; padding: 10px; text-align: right; border-bottom: 1px solid #ddd;">
+        {% if user.is_authenticated %}
+            <span>Bienvenido/a, <strong>{{ user.username }}</strong></span> | 
+            <form action="{% url 'logout' %}" method="POST" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" style="background: none; border: none; color: red; cursor: pointer; text-decoration: underline;">Cerrar sesión</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Iniciar sesión</a> | 
+            <a href="{% url 'registro' %}">Registrarse</a>
+        {% endif %}
+    </div>
+
+<h1>Catálogo de Obras Musicales</h1>
+    <p>
+        <a href="{% url 'lista_compositores' %}" style="padding: 10px; background: #28a745; color: white; text-decoration: none; border-radius: 5px;">👤 Ver todos los Compositores</a>
+    </p>
+    <p><a href="{% url 'nueva_obra' %}" style="padding: 10px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;">+ Añadir Nueva Obra</a></p>
+    
+    <form method="GET" action="{% url 'lista_obras' %}">
+        <input type="text" name="q" placeholder="Buscar por título..." value="{{ query|default_if_none:'' }}">
+        
+        <select name="compositor">
+            <option value="">Todos los compositores</option>
+            {% for comp in compositores %}
+                <option value="{{ comp.id }}" {% if comp.id|stringformat:"s" == compositor_seleccionado %}selected{% endif %}>
+                    {{ comp.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="tipo">
+            <option value="">Todos los tipos</option>
+            {% for key, value in tipos_obra %}
+                <option value="{{ key }}" {% if key == tipo_seleccionado %}selected{% endif %}>
+                    {{ value }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="orden">
+            <option value="popularidad" {% if orden_seleccionado == 'popularidad' or not orden_seleccionado %}selected{% endif %}>🔥 Más Populares</option>
+            <option value="duracion" {% if orden_seleccionado == 'duracion' %}selected{% endif %}>⏱️ Mayor Duración</option>
+            <option value="antiguedad" {% if orden_seleccionado == 'antiguedad' %}selected{% endif %}>🏛️ Más Antiguas</option>
+        </select>
+
+        <button type="submit">Buscar y Ordenar</button>
+        <a href="{% url 'lista_obras' %}">Limpiar filtros</a>
+    </form>
+    <hr>
+    <ul>
+        {% for obra in obras %}
+            <li>
+                <strong><a href="{% url 'detalle_obra' obra.id %}">{{ obra.titulo }}</a></strong> 
+                - Compuesta por {{ obra.compositor.nombre }} 
+                ({{ obra.ano_composicion }}) | Duración: {{ obra.duracion_minutos }} min.
+            </li>
+        {% empty %}
+            <li>No se han encontrado obras con esos criterios.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

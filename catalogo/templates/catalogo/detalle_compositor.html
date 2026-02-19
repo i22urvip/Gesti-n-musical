@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><title>{{ compositor.nombre }}</title></head>
+<body>
+    <a href="{% url 'lista_compositores' %}">⬅ Volver a compositores</a>
+    
+    <h1>{{ compositor.nombre }}</h1>
+    {% if compositor.epoca %}<p><strong>Época:</strong> {{ compositor.epoca }}</p>{% endif %}
+    {% if compositor.biografia %}<p><strong>Biografía:</strong> {{ compositor.biografia }}</p>{% endif %}
+    
+    <hr>
+    <h2>Obras en nuestro almacén ({{ compositor.obras.count }})</h2>
+    <ul>
+        {% for obra in compositor.obras.all %}
+            <li>
+                <a href="{% url 'detalle_obra' obra.id %}">{{ obra.titulo }}</a> 
+                ({{ obra.get_tipo_display }}, {{ obra.ano_composicion }})
+            </li>
+        {% empty %}
+            <li>Aún no tenemos obras de este compositor en el almacén.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

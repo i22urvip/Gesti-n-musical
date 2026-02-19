@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><title>Compositores</title></head>
+<body>
+    <a href="{% url 'lista_obras' %}">⬅ Volver al catálogo de obras</a>
+    <h1>Nuestros Compositores</h1>
+    <ul>
+        {% for comp in compositores %}
+            <li>
+                <strong><a href="{% url 'detalle_compositor' comp.id %}">{{ comp.nombre }}</a></strong>
+                {% if comp.epoca %} ({{ comp.epoca }}) {% endif %}
+            </li>
+        {% empty %}
+            <li>No hay compositores registrados.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
