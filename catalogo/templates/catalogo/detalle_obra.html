@@ -1,35 +1,43 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ obra.titulo }} - Detalles</title>
-</head>
-<body>
-    <a href="{% url 'lista_obras' %}">⬅ Volver al catálogo</a>
-    
-    <h1>{{ obra.titulo }}</h1>
-    {% if request.user == obra.creador or request.user.is_superuser %}
-        <p>
-            <a href="{% url 'editar_obra' obra.id %}" style="padding: 5px 10px; background: #ffc107; color: black; text-decoration: none; border-radius: 5px;">
-                ✏️ Editar esta obra
-            </a>
-        </p>
-    {% endif %}
-    <h2>Compositor: {{ obra.compositor.nombre }}</h2>
-    
-    <ul>
-        <li><strong>Tipo:</strong> {{ obra.get_tipo_display }}</li>
-        <li><strong>Año de composición:</strong> {{ obra.ano_composicion }}</li>
-        <li><strong>Duración:</strong> {{ obra.duracion_minutos }} minutos</li>
-        <li><strong>Instrumentos necesarios:</strong> {{ obra.num_instrumentos }}</li>
-        <li><strong>Popularidad:</strong> {{ obra.popularidad }} consultas</li>
-    </ul>
+{% extends 'catalogo/base.html' %}
 
-    {% if obra.partitura %}
-        <p>📄 <a href="{{ obra.partitura.url }}" target="_blank">Descargar Partitura (PDF)</a></p>
-    {% else %}
-        <p><em>No hay partitura disponible para esta obra todavía.</em></p>
-    {% endif %}
+{% block title %}{{ obra.titulo }} - Detalles{% endblock %}
 
-</body>
-</html>
+{% block content %}
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center py-3">
+        <h2 class="mb-0">{{ obra.titulo }}</h2>
+        {% if request.user == obra.creador or request.user.is_superuser %}
+            <a href="{% url 'editar_obra' obra.id %}" class="btn btn-warning btn-sm fw-bold">✏️ Editar Obra</a>
+        {% endif %}
+    </div>
+    <div class="card-body p-4">
+        <h4 class="text-secondary mb-4">Compositor: <strong>{{ obra.compositor.nombre }}</strong></h4>
+        
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Categoría:</strong> <span class="badge bg-info text-dark">{{ obra.get_tipo_display }}</span></li>
+                    <li class="list-group-item"><strong>Año de composición:</strong> {{ obra.ano_composicion }}</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Duración:</strong> {{ obra.duracion_minutos }} minutos</li>
+                    <li class="list-group-item"><strong>Instrumentos necesarios:</strong> {{ obra.num_instrumentos }}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            {% if obra.partitura %}
+                <a href="{{ obra.partitura.url }}" target="_blank" class="btn btn-success btn-lg px-5 shadow-sm">📄 Descargar Partitura PDF</a>
+            {% else %}
+                <div class="alert alert-secondary">Todavía no se ha subido la partitura de esta obra.</div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="card-footer bg-light p-3">
+        <a href="{% url 'lista_obras' %}" class="btn btn-outline-secondary">⬅ Volver al catálogo</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,13 +1,25 @@
-<!DOCTYPE html>
-<html lang="es">
-<head><title>Iniciar Sesión</title></head>
-<body>
-    <h1>Entrar al sistema</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Iniciar Sesión</button>
-    </form>
-    <p>¿No tienes cuenta? <a href="{% url 'registro' %}">Regístrate aquí</a></p>
-</body>
-</html>
+{% extends 'catalogo/base.html' %}
+
+{% block title %}Iniciar Sesión{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="card shadow border-0">
+            <div class="card-header bg-dark text-white text-center py-3">
+                <h4 class="mb-0">🔐 Entrar al Sistema</h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary w-100 mt-3 fw-bold">Iniciar Sesión</button>
+                </form>
+                <div class="text-center mt-3">
+                    <small>¿No tienes cuenta? <a href="{% url 'registro' %}">Regístrate aquí</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

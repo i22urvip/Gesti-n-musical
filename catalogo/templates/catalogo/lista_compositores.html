@@ -1,18 +1,29 @@
-<!DOCTYPE html>
-<html lang="es">
-<head><title>Compositores</title></head>
-<body>
-    <a href="{% url 'lista_obras' %}">⬅ Volver al catálogo de obras</a>
-    <h1>Nuestros Compositores</h1>
-    <ul>
-        {% for comp in compositores %}
-            <li>
-                <strong><a href="{% url 'detalle_compositor' comp.id %}">{{ comp.nombre }}</a></strong>
-                {% if comp.epoca %} ({{ comp.epoca }}) {% endif %}
-            </li>
-        {% empty %}
-            <li>No hay compositores registrados.</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'catalogo/base.html' %}
+
+{% block title %}Nuestros Compositores{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4 mt-4">
+    <h2 class="text-success fw-bold">Nuestros Compositores</h2>
+    <a href="{% url 'lista_obras' %}" class="btn btn-outline-secondary">⬅ Volver al catálogo</a>
+</div>
+
+<div class="row">
+    {% for comp in compositores %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100 border-0 border-start border-success border-4">
+                <div class="card-body d-flex flex-column justify-content-center">
+                    <h4 class="card-title fw-bold text-center mb-0">
+                        <a href="{% url 'detalle_compositor' comp.id %}" class="text-decoration-none text-success">{{ comp.nombre }}</a>
+                    </h4>
+                    {% if comp.epoca %}
+                        <p class="text-center text-muted mt-2 mb-0"><small>Época: {{ comp.epoca }}</small></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12"><div class="alert alert-info">No hay compositores registrados.</div></div>
+    {% endfor %}
+</div>
+{% endblock %}
