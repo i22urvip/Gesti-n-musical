@@ -2,16 +2,22 @@
 
 {% block title %}Catálogo de Obras{% endblock %}
 
-{% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="text-primary fw-bold">Catálogo Musical</h1>
+{% block hero %}
+<div class="page-hero d-flex justify-content-between align-items-center">
     <div>
-        <a href="{% url 'lista_compositores' %}" class="btn btn-success">👤 Compositores</a>
-        <a href="{% url 'nueva_obra' %}" class="btn btn-primary">+ Añadir Obra</a>
+        <h1>Catálogo Musical</h1>
+        <p class="text-muted mb-0">Descubre partituras, compositores y detalles de nuestras obras.</p>
+    </div>
+    <div>
+        <a href="{% url 'lista_compositores' %}" class="btn btn-outline-success me-2">👤 Compositores</a>
+        <a href="{% url 'nueva_obra' %}" class="btn btn-music">+ Añadir Obra</a>
     </div>
 </div>
+{% endblock %}
 
-<div class="card p-3 mb-4 shadow-sm border-0">
+{% block content %}
+
+<div class="card p-3 mb-4 shadow-musical border-0 form-card">
     <form method="GET" action="{% url 'lista_obras' %}" class="row g-2 align-items-center">
         <div class="col-md-3">
             <input type="text" name="q" class="form-control" placeholder="Buscar título..." value="{{ query|default_if_none:'' }}">
@@ -46,10 +52,10 @@
     </form>
 </div>
 
-<div class="row">
+    <div class="row">
     {% for obra in obras %}
         <div class="col-md-6 mb-3">
-            <div class="card shadow-sm h-100 border-0 border-start border-primary border-4">
+            <div class="card shadow-musical h-100 border-0 border-start border-primary border-4">
                 <div class="card-body">
                     <h5 class="card-title fw-bold">
                         <a href="{% url 'detalle_obra' obra.id %}" class="text-decoration-none">{{ obra.titulo }}</a>
@@ -58,7 +64,7 @@
                     <p class="card-text">
                         <span class="badge bg-info text-dark">{{ obra.get_tipo_display }}</span>
                         <span class="badge bg-light text-dark border">⏱️ {{ obra.duracion_minutos }} min</span>
-                        <span class="badge bg-warning text-dark">🔥 {{ obra.popularidad }} visitas</span>
+                        <span class="badge badge-music">🔥 {{ obra.popularidad }} visitas</span>
                     </p>
                 </div>
             </div>

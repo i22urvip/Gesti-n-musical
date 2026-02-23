@@ -2,12 +2,19 @@
 
 {% block title %}{{ obra.titulo }} - Detalles{% endblock %}
 
+{% block hero %}
+<div class="page-hero">
+    <h1>{{ obra.titulo }}</h1>
+    <p class="text-muted mb-0">Detalles de la obra y recursos (partituras, duración, instrumentos).</p>
+</div>
+{% endblock %}
+
 {% block content %}
-<div class="card shadow border-0 mt-4">
+<div class="card shadow-musical border-0 mt-4">
     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center py-3">
         <h2 class="mb-0">{{ obra.titulo }}</h2>
         {% if request.user == obra.creador or request.user.is_superuser %}
-            <a href="{% url 'editar_obra' obra.id %}" class="btn btn-warning btn-sm fw-bold">✏️ Editar Obra</a>
+            <a href="{% url 'editar_obra' obra.id %}" class="btn btn-warning btn-sm fw-bold">✏️ Editar</a>
         {% endif %}
     </div>
     <div class="card-body p-4">
@@ -30,7 +37,7 @@
 
         <div class="text-center mt-4">
             {% if obra.partitura %}
-                <a href="{{ obra.partitura.url }}" target="_blank" class="btn btn-success btn-lg px-5 shadow-sm">📄 Descargar Partitura PDF</a>
+                <a href="{{ obra.partitura.url }}" target="_blank" class="btn btn-music btn-lg px-5 shadow-sm">📄 Descargar Partitura PDF</a>
             {% else %}
                 <div class="alert alert-secondary">Todavía no se ha subido la partitura de esta obra.</div>
             {% endif %}
