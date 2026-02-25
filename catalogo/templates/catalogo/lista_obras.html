@@ -9,7 +9,7 @@
         <p class="text-muted mb-0">Descubre partituras, compositores y detalles de nuestras obras.</p>
     </div>
     <div>
-        <a href="{% url 'lista_compositores' %}" class="btn btn-outline-success me-2">Compositores</a>
+        <a href="{% url 'lista_compositores' %}" class="btn btn-outline-light me-2">Compositores</a>
         <a href="{% url 'nueva_obra' %}" class="btn btn-music">+ Añadir Obra</a>
     </div>
 </div>
@@ -61,7 +61,7 @@
             </select>
         </div>
         <div class="col-md-2 d-flex gap-2">
-            <button type="submit" class="btn btn-secondary w-100">Filtrar</button>
+            <button type="submit" class="btn btn-music w-100">Filtrar</button>
             <a href="{% url 'lista_obras' %}" class="btn btn-outline-danger" title="Limpiar">X</a>
         </div>
     </form>

@@ -21,11 +21,17 @@
     body {
         background-color: var(--fondo-crema);
         color: var(--texto-oscuro);
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Tipografía elegante para títulos */
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Playfair Display', serif;
     }
 
     /* 3. REDISEÑAMOS EL HERO (La cabecera de las páginas) */
     .page-hero {
-        background: linear-gradient(135deg, var(--burdeos), var(--rojo-vivo));
+        background: linear-gradient(135deg, var(--burdeos),var(--rojo-vivo));
         color: white;
         padding: 2rem;
         border-radius: 10px;
@@ -43,7 +49,6 @@
     .btn-primary { background-color: var(--burdeos); border-color: var(--burdeos); color: white; }
     .btn-primary:hover { background-color: var(--rojo-vivo); border-color: var(--rojo-vivo); color: white;}
 
-    /* Lo que era Verde (Success) o tu botón de Música ahora es Naranja */
     .btn-success, .btn-music { background-color: var(--naranja); border-color: var(--naranja); color: white; }
     .btn-success:hover, .btn-music:hover { background-color: #e6761b; border-color: #e6761b; color: white; }
     .btn-outline-success { color: var(--naranja); border-color: var(--naranja); }
@@ -64,12 +69,7 @@
         transition: all 0.3s ease-in-out;
     }
     
-    .page-hero .btn:hover {
-        /* Al pasar el ratón, la luz explota y brilla más fuerte */
-        box-shadow: 0 0 15px var(--naranja), 0 0 30px var(--naranja), 0 0 45px var(--rojo-vivo);
-        transform: translateY(-2px); /* Un pequeño saltito hacia arriba */
-        color: white !important;
-    }
+   
     
     /* 7. BOTÓN VOLVER (Elegante y con alto contraste) */
     .btn-volver {
@@ -88,14 +88,46 @@
         transform: translateY(-2px);           /* Pequeño saltito */
         box-shadow: 0 6px 15px rgba(127, 7, 45, 0.3);
     }
+
+    /* 8. TÍTULOS DE LAS TARJETAS (Adiós al azul por defecto) */
+    .card-title a {
+        color: var(--texto-oscuro) !important; /* Color burdeos elegante en reposo */
+        transition: color 0.3s ease-in-out;
+    }
+    
+    .card-title a:hover {
+        color: var(--naranja) !important; /* Se ilumina en naranja al pasar el ratón */
+        text-decoration: none;
+    }
+
+    /* 9. EL LOGO DE "LA BIBLIOTECA" (Efecto Tinta Premium) */
+    .navbar-brand {
+        font-size: 1.8rem !important;      /* Lo hacemos más grande e imponente */
+        font-family: 'Georgia', serif;     /* Letra clásica, con remates, estilo libro antiguo */
+        font-weight: 900 !important;       /* Extra negrita */
+        text-transform: uppercase;         /* Todo en mayúsculas para dar autoridad */
+        letter-spacing: 2px;               /* Separamos un poco las letras */
+        
+        /* Aquí viene la magia: pintamos la letra con un degradado de tus colores */
+        background: linear-gradient(45deg, var(--fondo-crema), var(--naranja), var(--rojo-vivo));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        
+        transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .navbar-brand:hover {
+        transform: scale(1.05);            /* Un pequeño zoom al pasar el ratón */
+        filter: drop-shadow(0px 4px 6px rgba(199, 184, 187, 0.4)); /* Sombra rojiza brillante */
+    }
 </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-0 shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-0 shadow-sm">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{% url 'lista_obras' %}">
-                <span class="brand-title">Archivo Orquesta</span>
+                <span class="brand-title">El Rincón del Músico</span>
             </a>
             <div class="d-flex text-white align-items-center">
                 {% if user.is_authenticated %}
@@ -120,7 +152,7 @@
 
         <footer class="site-footer text-center">
             <div class="container">
-                <p class="mb-1">Archivo Orquesta — Gestión de obras musicales</p>
+                <p class="mb-1">El Rincón del Músico — Gestión de obras musicales</p>
                 <small class="text-muted">Diseñado para catálogos, partituras y detalles musicales.</small>
             </div>
         </footer>
