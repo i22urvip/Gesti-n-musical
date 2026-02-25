@@ -17,6 +17,21 @@
 
 {% block content %}
 
+<style>
+    .zoom-hover {
+        /* Prepara la tarjeta para que la animación sea suave */
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+    .zoom-hover:hover {
+        /* Hace el zoom del 3% */
+        transform: scale(1.03); 
+        /* Cambia la flecha por la 'manita' para invitar a hacer clic */
+        cursor: pointer; 
+        /* Hace que la sombra sea un poco más grande al elevarse */
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important; 
+    }
+</style>
+
 <div class="card p-3 mb-4 shadow-musical border-0 form-card">
     <form method="GET" action="{% url 'lista_obras' %}" class="row g-2 align-items-center">
         <div class="col-md-3">
@@ -52,10 +67,10 @@
     </form>
 </div>
 
-    <div class="row">
+<div class="row">
     {% for obra in obras %}
-        <div class="col-md-6 mb-3">
-            <div class="card shadow-musical h-100 border-0 border-start border-primary border-4">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-musical h-100 border-0 border-start border-primary border-4 zoom-hover">
                 <div class="card-body">
                     <h5 class="card-title fw-bold">
                         <a href="{% url 'detalle_obra' obra.id %}" class="text-decoration-none">{{ obra.titulo }}</a>
@@ -73,4 +88,5 @@
         <div class="col-12"><div class="alert alert-warning">No hay obras registradas con esos filtros.</div></div>
     {% endfor %}
 </div>
+
 {% endblock %}
