@@ -4,7 +4,7 @@
 
 {% block hero %}
 <div class="page-hero">
-    <h1>👤 {{ compositor.nombre }}</h1>
+    <h1>{{ compositor.nombre }}</h1>
     <p class="text-muted mb-0">Ficha del compositor y sus obras en el catálogo.</p>
 </div>
 {% endblock %}
@@ -12,7 +12,7 @@
 {% block content %}
 <div class="card shadow-musical border-0 mt-4 mb-5">
     <div class="card-header bg-success text-white py-3">
-        <h2 class="mb-0">👤 {{ compositor.nombre }}</h2>
+        <h2 class="mb-0">{{ compositor.nombre }}</h2>
     </div>
     <div class="card-body p-4">
         {% if compositor.epoca %}<p><strong>Época:</strong> <span class="badge bg-secondary">{{ compositor.epoca }}</span></p>{% endif %}

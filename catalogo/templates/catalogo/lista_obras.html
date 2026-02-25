@@ -9,7 +9,7 @@
         <p class="text-muted mb-0">Descubre partituras, compositores y detalles de nuestras obras.</p>
     </div>
     <div>
-        <a href="{% url 'lista_compositores' %}" class="btn btn-outline-success me-2">👤 Compositores</a>
+        <a href="{% url 'lista_compositores' %}" class="btn btn-outline-success me-2">Compositores</a>
         <a href="{% url 'nueva_obra' %}" class="btn btn-music">+ Añadir Obra</a>
     </div>
 </div>
@@ -42,7 +42,7 @@
             <select name="orden" class="form-select">
                 <option value="popularidad" {% if orden_seleccionado == 'popularidad' or not orden_seleccionado %}selected{% endif %}>🔥 Popular</option>
                 <option value="duracion" {% if orden_seleccionado == 'duracion' %}selected{% endif %}>⏱️ Duración</option>
-                <option value="antiguedad" {% if orden_seleccionado == 'antiguedad' %}selected{% endif %}>🏛️ Antiguas</option>
+                <option value="antiguedad" {% if orden_seleccionado == 'antiguedad' %}selected{% endif %}>🧓 Antigüedad</option>
             </select>
         </div>
         <div class="col-md-2 d-flex gap-2">
@@ -60,7 +60,7 @@
                     <h5 class="card-title fw-bold">
                         <a href="{% url 'detalle_obra' obra.id %}" class="text-decoration-none">{{ obra.titulo }}</a>
                     </h5>
-                    <h6 class="card-subtitle mb-3 text-muted">✍️ {{ obra.compositor.nombre }} ({{ obra.ano_composicion }})</h6>
+                    <h6 class="card-subtitle mb-3 text-muted">{{ obra.compositor.nombre }} ({{ obra.ano_composicion }})</h6>
                     <p class="card-text">
                         <span class="badge bg-info text-dark">{{ obra.get_tipo_display }}</span>
                         <span class="badge bg-light text-dark border">⏱️ {{ obra.duracion_minutos }} min</span>
