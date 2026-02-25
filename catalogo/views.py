@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from .models import Obra, Compositor
-from .forms import ObraForm
+from .forms import ObraForm, RegistroForm, CompositorForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 
@@ -99,13 +99,39 @@ def detalle_compositor(request, compositor_id):
     # podemos sacar todas las obras de este compositor fácilmente en el HTML
     return render(request, 'catalogo/detalle_compositor.html', {'compositor': compositor})
 
+
 def registro(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = RegistroForm(request.POST)
         if form.is_valid():
-            usuario = form.save()
-            login(request, usuario) # Hacemos login automático al registrarse
+            user = form.save()
             return redirect('lista_obras')
     else:
-        form = UserCreationForm()
+        form = RegistroForm()
     return render(request, 'catalogo/registro.html', {'form': form})
+
+# Vista para Crear Compositor
+@login_required
+def nuevo_compositor(request):
+    if request.method == 'POST':
+        form = CompositorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('catalogo/lista_compositores')
+    else:
+        form = CompositorForm()
+    return render(request, 'catalogo/nuevo_compositor.html', {'form': form})
+
+# Vista para Eliminar Compositor (Solo Administradores)
+@login_required
+def eliminar_compositor(request, compositor_id):
+    if not request.user.is_superuser:
+        return redirect('lista_compositores')
+
+    compositor = get_object_or_404(Compositor, id=compositor_id)
+
+    if request.method == 'POST':
+        compositor.delete()
+        return redirect('lista_compositores')
+
+    return render(request, 'catalogo/eliminar_compositor.html', {'compositor': compositor})

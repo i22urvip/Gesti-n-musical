@@ -12,4 +12,6 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='lista_obras'), name='logout'),
     path('<int:obra_id>/', views.detalle_obra, name='detalle_obra'),
     path('<int:obra_id>/editar/', views.editar_obra, name='editar_obra'),
+    path('compositores/nuevo/', views.nuevo_compositor, name='nuevo_compositor'),
+    path('compositores/<int:compositor_id>/eliminar/', views.eliminar_compositor, name='eliminar_compositor'),
 ]
