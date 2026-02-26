@@ -3,13 +3,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Obra, Compositor
 
-# Formulario original de Obras
 class ObraForm(forms.ModelForm):
     class Meta:
         model = Obra
         fields = ['titulo', 'compositor', 'tipo', 'ano_composicion', 'duracion_minutos', 'num_instrumentos', 'partitura']
 
-# Formulario de Registro sin el texto pesado en inglés
 class RegistroForm(UserCreationForm):
     class Meta:
         model = User
@@ -19,7 +17,6 @@ class RegistroForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.fields['username'].help_text = ''
 
-# Formulario para Crear Compositores (haciendo época y biografía obligatorios)
 class CompositorForm(forms.ModelForm):
     class Meta:
         model = Compositor

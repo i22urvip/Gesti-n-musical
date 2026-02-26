@@ -10,7 +10,6 @@ class Compositor(models.Model):
         return self.nombre
 
 class Obra(models.Model):
-    # Opciones para el tipo de obra (puedes añadir más luego)
     TIPOS_DE_OBRA = [
         ('requiem', 'Réquiem'),
         ('vals', 'Vals'),
@@ -26,11 +25,7 @@ class Obra(models.Model):
     ano_composicion = models.IntegerField(help_text="Año en el que se compuso")
     duracion_minutos = models.IntegerField(help_text="Duración estimada en minutos")
     num_instrumentos = models.IntegerField(help_text="Número de instrumentos necesarios")
-    
-    # Aquí se guardará el PDF
     partitura = models.FileField(upload_to='partituras/', blank=True, null=True)
-    
-    # Datos de gestión interna
     popularidad = models.IntegerField(default=0, help_text="Número de consultas/descargas")
     creador = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
