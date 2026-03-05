@@ -18,3 +18,26 @@ Una aplicación web desarrollada en **Django** para gestionar el catálogo de ob
 * **Base de Datos:** PostgreSQL (Neon)
 * **Frontend:** HTML5, CSS3, Bootstrap 5 (Tarjetas, Formularios, Alertas)
 * **Entorno:** GitHub Codespaces
+
+# 📂 Estructura de Directorios y Ficheros
+
+El proyecto "El Rincón del Músico" sigue de forma estricta la arquitectura **MVT (Modelo-Vista-Plantilla)** propia del framework Django. Cada archivo tiene una única responsabilidad para mantener el código limpio y escalable.
+
+A modo de analogía, podemos imaginar el proyecto como un gran restaurante:
+
+```text
+Gesti-n-musical/
+├── manage.py
+├── .env
+├── requirements.txt
+├── venv/
+├── orquesta/
+│   ├── settings.py
+│   └── urls.py
+└── catalogo/
+    ├── models.py
+    ├── views.py
+    ├── urls.py
+    ├── tests.py
+    └── templates/
+        └── catalogo/
