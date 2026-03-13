@@ -42,6 +42,17 @@
                 <div class="alert alert-secondary">Todavía no se ha subido la partitura de esta obra.</div>
             {% endif %}
         </div>
+        {% if obra.audio %}
+        <div class="mt-4 p-3 bg-dark rounded border border-secondary">
+            <h5 class="text-light mb-3">Reproducir Obra</h5>
+            <audio controls class="w-100">
+                <source src="{{ obra.audio.url }}" type="audio/mpeg">
+                Tu navegador no soporta la reproducción de audio.
+        </audio>
+        </div>
+        {% else %}
+        <p class="text-muted mt-4">No hay archivo de audio disponible para esta obra.</p>
+        {% endif %}
     </div>
     <div class="card-footer bg-light p-3">
         <a href="{% url 'lista_obras' %}" class="btn btn-outline-secondary">⬅ Volver al catálogo</a>

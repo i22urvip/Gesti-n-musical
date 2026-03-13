@@ -26,3 +26,8 @@ class CompositorForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['epoca'].required = True
         self.fields['biografia'].required = True
+
+class ObraForm(forms.ModelForm):
+    class Meta:
+        model = Obra
+        fields = '__all__'

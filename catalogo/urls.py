@@ -14,4 +14,5 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='lista_obras'), name='logout'),
     path('<int:obra_id>/', views.detalle_obra, name='detalle_obra'),
     path('<int:obra_id>/editar/', views.editar_obra, name='editar_obra'),
+    path('rocola/', views.vista_rocola, name='rocola'),
 ]

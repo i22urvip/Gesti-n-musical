@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
@@ -5,6 +6,7 @@ from .models import Obra, Compositor
 from .forms import ObraForm, RegistroForm, CompositorForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+
 
 def lista_obras(request):
     query = request.GET.get('q')
@@ -120,3 +122,25 @@ def eliminar_compositor(request, compositor_id):
         return redirect('lista_compositores')
 
     return render(request, 'catalogo/eliminar_compositor.html', {'compositor': compositor})
+
+
+def vista_rocola(request):
+    obras = Obra.objects.all()
+    
+    lista_canciones = []
+    for obra in obras:
+        # Usamos getattr para evitar errores si los campos no existen en tu models.py
+        duracion_texto = getattr(obra, 'duracion', "—")
+        compositor_obj = getattr(obra, 'compositor', None)
+        audio_obj = getattr(obra, 'audio', None)
+        
+        lista_canciones.append({
+            "id": obra.id,
+            "title": obra.titulo,
+            "artist": compositor_obj.nombre if compositor_obj else "Desconocido",
+            "duration": duracion_texto,
+            "audio_url": audio_obj.url if audio_obj else None,
+        })
+    
+    canciones_json = json.dumps(lista_canciones)
+    return render(request, 'catalogo/rocola.html', {'songs_json': canciones_json})

@@ -29,6 +29,7 @@ class Obra(models.Model):
     popularidad = models.IntegerField(default=0, help_text="Número de consultas/descargas")
     creador = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
+    audio = models.FileField(upload_to='audios/', null=True, blank=True)
 
     def __str__(self):
         return f"{self.titulo} - {self.compositor.nombre}"
